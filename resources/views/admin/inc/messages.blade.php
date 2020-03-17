@@ -1,7 +1,7 @@
 
 @if(session('success'))
 
-<div class="alert custom-alert bg-success text-center">
+<div class="alert custom-alert bg-success text-center text-light">
 
     <button class="btn btn-close" title="close message"><i class="fa fa-times" aria-hidden="true"></i></button>
 
@@ -15,7 +15,7 @@
 
 @if(session('error'))
 
-<div class="alert custom-alert bg-danger text-center">
+<div class="alert custom-alert bg-danger text-center text-light">
 
     <button class="btn btn-close" title="close message"><i class="fa fa-times" aria-hidden="true"></i></button>
 
