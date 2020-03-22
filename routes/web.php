@@ -12,20 +12,26 @@
 */
 
 Route::get('/', function () {
-    
+
      return view('auth.login');
 });
 
+
 Auth::routes();
+Route::group(['middleware' => 'auth'], function () {
+     Route::get('/dashboard', 'HomeController@index');
+     Route::get('/report', 'ReportController@index');
+     Route::get('/invoice-pdf-show', 'ReportController@invoice_pdf');
+     Route::get('/invoice-pdf-download', 'ReportController@invoice_pdf_download');
+     
+     Route::get('/getGuzzleRequest', 'ReportController@getGuzzleRequest');
+     Route::get('/postGuzzleRequest', 'ReportController@postGuzzleRequest');
 
-Route::get('/dashboard', 'HomeController@index');
-Route::get('/report', 'ReportController@index');
-Route::get('/invoice', 'ReportController@invoice');
-
-Route::get('/getGuzzleRequest', 'ReportController@getGuzzleRequest');
 
 
-Route::resource('/roles', 'UserRoleController');
-Route::resource('/users', 'UserController');
-Route::resource('/orders', 'OrderController');
-Route::resource('/locations', 'CityZoneController');
+     Route::resource('/roles', 'UserRoleController');
+     Route::resource('/users', 'UserController');
+     Route::resource('/orders', 'OrderController');
+     Route::get('/getzone', 'OrderController@get_zone');
+     Route::resource('/locations', 'CityZoneController');
+});

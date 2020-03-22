@@ -1,7 +1,9 @@
 @extends('admin.layouts.master')
 @section('title', 'All Order')
 @section('content-header')
-<h3 class="text-center"> <a class="btn btn-info" href="{{url('invoice')}}">GeneratePDF</a>Today Orders</h3>
+<h3 class="text-center"> <a class="btn btn-info" href="{{url('invoice-pdf-show')}}"><i class="fa fa-folder-open"></i> GeneratePDF</a>
+Today Orders
+<a class="btn btn-info" href="{{url('invoice-pdf-download')}}"><i class="fa fa-download"></i> DownloadPDF</a></h3>
 @endsection
 
 @section('main-content')
@@ -49,9 +51,9 @@
                       <div class="col-sm-6">
                         <div class="float-left">
                           <p class="m-0">Invoice To</p>
-                          <p class="m-0"><strong>{{$order->name}}</strong></p>
-                          <p class="m-0">Address:{{$order->address}}</p>
-                          <p class="m-0">Phone: {{$order->phone}}</p>
+                          <p class="m-0"><strong>{{$order->recipient_name}}</strong></p>
+                          <p class="m-0">Address:{{$order->recipient_address}}</p>
+                          <p class="m-0">Phone: {{$order->recipient_phone}}</p>
                         </div>
                       </div>
                       <div class="col-sm-6">
@@ -75,10 +77,10 @@
                       </thead>
                       <tr role="row" class="odd">
                         <td>{{$order->merchant_order_id}}</td>
-                        <td>{{$order->name}}</td>
-                        <td>{{$order->phone}}</td>
-                        <td>{{$order->address}}</td>
-                        <td>{{$order->amount}}</td>
+                        <td>{{$order->recipient_name}}</td>
+                        <td>{{$order->recipient_phone}}</td>
+                        <td>{{$order->recipient_address}}</td>
+                        <td>{{$order->amount_to_collect}}</td>
                       </tr>
                     </table>
                   </div>

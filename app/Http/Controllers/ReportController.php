@@ -16,7 +16,7 @@ class ReportController extends Controller
         $orders = DB::table('orders')->select('*')->where('created_at', $dt->toDateString())->get();
         return view('admin.pages.report.order-report')->with('orders', $orders);
     }
-    public function invoice()
+    public function invoice_pdf()
     {
         $dt = Carbon::now();
         $orders = DB::table('orders')->select('*')->where('created_at', $dt->toDateString())->get();
@@ -24,12 +24,12 @@ class ReportController extends Controller
         $pdf = PDF::loadView('admin.pages.report.invoice', compact('orders'));
         return $pdf->stream('invoice.pdf');
     }
-    public function getGuzzleRequest()
+    public function invoice_pdf_download()
     {
-        $client = new \GuzzleHttp\Client();
-        $request = $client->get('http://myexample.com');
-        $response = $request->getBody();
-       
-        dd($response);
+        $dt = Carbon::now();
+        $orders = DB::table('orders')->select('*')->where('created_at', $dt->toDateString())->get();
+        $filename = 'invoice_' . date('m-d-Y') . '.pdf';
+        $dompdf = PDF::loadView('admin.pages.report.invoice', compact('orders'));
+        return $dompdf->download($filename);
     }
 }

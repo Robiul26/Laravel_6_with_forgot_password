@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-  <title>@yield('title') | CMS</title>
+  <title>@yield('title') | CMIS</title>
 
   <!-- Bootstrap -->
   <link href="{{asset('assets/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -34,13 +34,35 @@
   <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    .form-control{
+      background: #f5f6f7;
+    }
+    ::selection {
+    background: #FE5757;
+    color: #fff;
+    text-shadow: none;
+}
+ 
+  </style>
   <script>
     jQuery(document).ready(function($) {
-        $('.datepicker').datepicker({
-            dateFormat: "yy-mm-dd"
-        });
+      $('.datepicker').datepicker({
+        dateFormat: "yy-mm-dd"
+      });
     });
-</script>
+  </script>
 </head>
 
 <body class="nav-md">

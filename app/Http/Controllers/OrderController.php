@@ -17,7 +17,8 @@ class OrderController extends Controller
     public function index()
     {
 
-        $orders = Order::select('*')->orderBy('id', 'desc')->paginate(10);
+        // $orders = Order::select('*')->orderBy('id', 'desc')->paginate(10);
+        $orders = Order::with(['city_zone'])->orderBy('id', 'desc')->paginate(8);
         return view('admin.pages.order.show-order')->with('orders', $orders);
     }
 
@@ -28,7 +29,30 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.order.add-order');
+        $cities = DB::table('city_zones')
+            ->select('city_id', 'city_name')
+            ->distinct()
+            ->orderBy('city_name')
+            ->get();
+        $dhaka_zone = DB::table('city_zones')
+            ->select('zone_id', 'zone_name')
+            ->where('city_id', 1)
+            ->orderBy('zone_name')
+            ->get();
+
+        return view('admin.pages.order.add-order', compact('cities', 'dhaka_zone'));
+    }
+
+    // Get Subject
+    public function get_zone(Request $request)
+    {
+        $id = $request->id;
+        $zones = DB::table('city_zones')
+            ->select('zone_name')
+            ->where('city_id', $id)
+            ->get();
+
+        return response()->json($zones);
     }
 
     /**
@@ -98,7 +122,7 @@ class OrderController extends Controller
                 'amount' => 'numeric|required',
             ]);
             //  
-           
+
             //
             $order = new Order;
             $order->item_type = $itemType;
@@ -216,7 +240,7 @@ class OrderController extends Controller
                 'amount' => 'numeric|required',
             ]);
             //  
-           
+
             //
             $order = Order::find($id);
             $order->item_type = $itemType;

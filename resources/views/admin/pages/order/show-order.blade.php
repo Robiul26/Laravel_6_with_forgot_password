@@ -76,7 +76,7 @@
                           <th>City</th>
                           <th>Zone</th>
                           <th>Area</th>
-                          <th>Delivery Type</th>
+                          <th>Delivery Time</th>
                           <th>Item Type</th>
                           <th>Instraction</th>
                           <th>QTY</th>
@@ -89,7 +89,9 @@
                       </thead>
                       @foreach($orders as $order)
                       <tr role="row" class="odd">
-                        <td>{{$order->id}}</td>
+                        <td>{{$order->id}}
+
+                        </td>
                         <td>{{$order->store_id}}</td>
                         <td>{{$order->merchant_order_id}}</td>
                         <td>{{$order->recipient_name}}</td>
@@ -98,7 +100,13 @@
                         <td>{{$order->recipient_city}}</td>
                         <td>{{$order->recipient_zone}}</td>
                         <td>{{$order->recipient_area}}</td>
-                        <td>{{$order->delivery_type}}</td>
+                        <td>
+                          @if($order->delivery_type==48)
+                          Normal Delivery(48-72 hours)
+                          @else
+                          On Demand Delivery (same day)
+                          @endif
+                        </td>
                         <td>{{$order->item_type}}</td>
                         <td>{{$order->special_instruction}}</td>
                         <td>{{$order->item_quantity}}</td>
@@ -121,7 +129,7 @@
                   </div>
                 </div>
                 <div class="row">
-
+                  {{$orders->links()}}
                 </div>
               </div>
             </div>

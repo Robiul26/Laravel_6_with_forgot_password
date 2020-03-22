@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\CityZone;
 
 class CityZoneController extends Controller
 {
@@ -13,6 +15,9 @@ class CityZoneController extends Controller
      */
     public function index()
     {
+        //$city_zones = DB::tables('city_zones')->select('*')->get();
+        $city_zones = CityZone::select('*')->orderBy('id', 'desc')->paginate(10);
+        return $city_zones;
         return view('admin.pages.location.show-location');
     }
 
