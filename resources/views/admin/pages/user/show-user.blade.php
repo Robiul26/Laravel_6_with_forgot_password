@@ -50,6 +50,7 @@
                       <thead>
                         <tr role="row">
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 10px;">#ID</th>
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 64px;">Photo</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 64px;">Name</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 25px;">Username</th>
                           <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 25px;">Email</th>
@@ -62,6 +63,7 @@
                       @foreach($users as $user )
                       <tr role="row" class="odd">
                         <td>{{ $user->id }}</td>
+                        <td><img src="{{ asset('/uploads/users/'.$user->picture) }}" width="50" alt=""></td>
                         <td>{{ $user->nice_name }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>

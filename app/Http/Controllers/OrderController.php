@@ -32,7 +32,7 @@ class OrderController extends Controller
             ->orWhere('recipient_phone', 'like', '%' . $search . '%')
             ->orWhere('created_at', 'like', '%' . $search . '%')
             ->paginate(5);
-        return view('admin.pages.order.show-order', compact('search', 'orders'));
+        return view('admin.pages.order.show-order',compact('search','orders'));
     }
     public function single_report($id)
     {

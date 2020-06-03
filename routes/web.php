@@ -17,7 +17,8 @@ Route::get('/', function () {
 });
 
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(['register' => false]);
 Route::group(['middleware' => 'auth'], function () {
      Route::get('/dashboard', 'HomeController@index');
      Route::get('/report', 'ReportController@index');

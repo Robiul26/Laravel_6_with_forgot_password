@@ -69,7 +69,7 @@ class UserController extends Controller
 		$user = new User;
         $user->name = $request->UserName;
 		$user->email = $request->email;
-		$user->password = $request->password;
+        $user->password = Hash::make($request->password);
 		$user->nice_name = $request->niceName;
 		$user->gender = $request->gender;
 		$user->block_status = $request->active;
