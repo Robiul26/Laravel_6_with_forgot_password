@@ -65,40 +65,28 @@ class UserController extends Controller
             'image' => 'mimes:jpeg,jpg,png,gif|nullable|max:1024',
        ]);
 
-        // Handle File Upload
-        if($request->hasFile('image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            //Input::file('image')->move('uploads/users', $fileNameToStore);
-            $request->file('image')->move('uploads/users', $fileNameToStore);
-            //$path = $request->file('image')->storeAs('public/users', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
-        }
+      
+		$user = new User;
+        $user->name = $request->UserName;
+		$user->email = $request->email;
+		$user->password = $request->password;
+		$user->nice_name = $request->niceName;
+		$user->gender = $request->gender;
+		$user->block_status = $request->active;
+		$user->phone = $request->phone;
+		$user->role_id = $request->userRole;
 
-        DB::table($this->users)->insert(
-            [
-                'name' => $request->input('UserName'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-                'nice_name' => $request->input('niceName'),
-                'gender' => $request->input('gender'),
-                'picture' => $fileNameToStore,
-                'block_status' => $request->input('active'),
-                'phone' => $request->input('phone'),
-                'role_id' => $request->input('userRole'),
-                'created_at' => DB::raw('now()')
-            ]
-        );
+        // Insert Image
+        $image = $request->file('image');
+        $img = time() . '.' . $image->getClientOriginalExtension();
+        //$location = public_path('uploads/categories/'.$img);
+        $image->move('uploads/users/', $img);
+        // Image::make($image)->save($location);
+        $user->picture = $img;
 
-        return redirect()->back();
+        $user->save();
+
+        return redirect()->back()->with('success', 'Add User Successfull');
     }
 
     /**
@@ -204,7 +192,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        DB::table($this->users)->where('id', '=', $id)->delete();
+       // DB::table($this->users)->where('id', '=', $id)->delete();
+		$user = User::find($id);
+        if(file_exists('uploads/users/'.$user->picture)){
+            unlink('uploads/users/'.$user->picture);
+        }
+        $user->delete();
         return redirect()->back()->with('success', 'User deleted successfully');
     }
 }

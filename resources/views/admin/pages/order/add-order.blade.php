@@ -136,17 +136,6 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="txtAria">Recipient Ariea</label>
-                                        <input type="text" name="txtAria" class="form-control" value="{{ old('txtAria')}}" id="txtAria" placeholder="Aria">
-                                        @if ($errors->has('txtAria'))
-                                        <p class="text-danger">
-                                            <small>{{ $errors->first('txtAria') }}</small>
-                                        </p>
-                                        @endif
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-sm-5">

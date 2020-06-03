@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Order;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -18,8 +19,28 @@ class OrderController extends Controller
     {
 
         // $orders = Order::select('*')->orderBy('id', 'desc')->paginate(10);
-        $orders = Order::with(['city_zone'])->orderBy('id', 'desc')->paginate(8);
-        return view('admin.pages.order.show-order')->with('orders', $orders);
+        $orders = Order::orderBy('id', 'desc')->paginate(8);
+        // return $orders;
+
+        return view('admin.pages.order.show-order', compact('orders'));
+    }
+    public function search(Request $request)
+    {
+
+        $search = $request->get('search');
+        $orders = Order::where('recipient_name', 'like', '%' . $search . '%')
+            ->orWhere('recipient_phone', 'like', '%' . $search . '%')
+            ->orWhere('created_at', 'like', '%' . $search . '%')
+            ->paginate(5);
+        return view('admin.pages.order.show-order', compact('search', 'orders'));
+    }
+    public function single_report($id)
+    {
+        
+        $order = Order::orderBy('id', 'desc')->where('id', $id)->first();
+      // return $order;
+        $pdf = PDF::loadView('admin.pages.report.single-invoice', compact('order'));
+        return $pdf->stream('invoice.pdf');
     }
 
     /**
@@ -43,14 +64,16 @@ class OrderController extends Controller
         return view('admin.pages.order.add-order', compact('cities', 'dhaka_zone'));
     }
 
-    // Get Subject
+    // Get Zone
     public function get_zone(Request $request)
     {
         $id = $request->id;
         $zones = DB::table('city_zones')
-            ->select('zone_name')
+            ->select('zone_name','zone_id')
             ->where('city_id', $id)
+			
             ->get();
+			
 
         return response()->json($zones);
     }

@@ -14,4 +14,6 @@ class CityZone extends Model
     
     // Timestamps
     public $timestamps = true;
+
+  
 }

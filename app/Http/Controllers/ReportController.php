@@ -13,11 +13,13 @@ class ReportController extends Controller
     public function index()
     {
         $dt = Carbon::now();
-        $orders = DB::table('orders')->select('*')->where('created_at', $dt->toDateString())->get();
+        $orders = DB::table('orders')->select('*')->where('created_at', $dt->toDateString())->paginate(5);
         return view('admin.pages.report.order-report')->with('orders', $orders);
     }
+
     public function invoice_pdf()
     {
+        
         $dt = Carbon::now();
         $orders = DB::table('orders')->select('*')->where('created_at', $dt->toDateString())->get();
         //return view('admin.pages.report.invoice', compact('orders'));

@@ -51,7 +51,10 @@
                           <td>{{ $role->active_status == 1 ? 'Active' : 'Inactive' }}</td>
                           <td>
                             <a href="{{ url('/roles/'.$role->id.'/edit') }}" class="btn btn-success">Edit</a>
-                            <a class="btn btn-danger" href="#" onclick="event.preventDefault(); document.getElementById('edit-form-{{$role->id}}').submit();"> Delete</a>
+                            <a class="btn btn-danger" href="#" onclick="var chk=confirm('Are you sure you want to delete this item?');
+                            if(chk==true){
+                              event.preventDefault(); document.getElementById('edit-form-{{$role->id}}').submit();
+                            }"> Delete</a>
                             <form id="edit-form-{{$role->id}}" action="{{ url('/roles/'.$role->id) }}" method="POST"
                             style="display: none;">
                             @method('delete')

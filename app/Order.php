@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Order extends Model
 {
     // Table Name
@@ -16,8 +17,12 @@ class Order extends Model
     public $timestamps = true;
 
     // relation with city_zone
-    public function city_zone(){
-        return $this->belongsTo('App\CityZone');
+    
+   
+	public function city()
+    {
+         return $this->belongsTo('App\CityZone','recipient_city','city_id','zone_id');
+		 //return $this->belongsTo('App\CityZone', 'recipient_city', 'other_key');
     }
 
     

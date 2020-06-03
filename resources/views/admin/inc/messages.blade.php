@@ -24,3 +24,22 @@
 </div>
 
 @endif
+
+<script>
+  $(function() {
+    $(document).on('click', '.btn-close', function() {
+
+     $('.custom-alert').hide();
+   
+
+    });
+
+    setTimeout(function() {
+
+      $('.custom-alert').hide();
+
+    }, 3000);
+  });
+
+ 
+</script>

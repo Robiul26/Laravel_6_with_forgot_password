@@ -17,8 +17,8 @@ class CityZoneController extends Controller
     {
         //$city_zones = DB::tables('city_zones')->select('*')->get();
         $city_zones = CityZone::select('*')->orderBy('id', 'desc')->paginate(10);
-        return $city_zones;
-        return view('admin.pages.location.show-location');
+        
+        return view('admin.pages.location.show-location',compact('city_zones'));
     }
 
     /**

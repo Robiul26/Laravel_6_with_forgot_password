@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+  <link rel="icon" href="{{asset('assets/backend/images/favicon.png')}}" type="image/ico" />
 
   <title>@yield('title') | CMIS</title>
 
@@ -46,15 +46,66 @@
     input[type=number] {
       -moz-appearance: textfield;
     }
-    .form-control{
+
+    .form-control {
       background: #f5f6f7;
     }
+
     ::selection {
-    background: #FE5757;
-    color: #fff;
-    text-shadow: none;
-}
- 
+      background: #FE5757;
+      color: #fff;
+      text-shadow: none;
+    }
+
+    .input-group {
+      margin-bottom: 0px;
+    }
+
+    /* For Datepicker Toggle */
+    .show {
+      display: none;
+    }
+
+    /* message close */
+    .custom-alert {
+      position: fixed;
+      top: 50px;
+      right: 0;
+      z-index: 99999;
+      width: 300px;
+      margin: 0;
+      color: #fff;
+      border: 0;
+    }
+
+    .btn-close {
+      background: transparent;
+      border: 0;
+      float: left;
+      font-size: 16px;
+      padding: 0;
+      color: #fff !important;
+    }
+
+    .bg-success {
+      background: #52c234;
+      background: -webkit-linear-gradient(to left, #061700, #52c234);
+      background: linear-gradient(to left, #061700, #52c234);
+    }
+
+    .bg-danger {
+      background: #DC2424;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #4A569D, #DC2424);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #4A569D, #DC2424);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    .moveIconstyle {
+      font-size: 16px;
+      margin: 2px 10px 2px 0;
+    }
   </style>
   <script>
     jQuery(document).ready(function($) {
@@ -291,7 +342,8 @@
 
       $(document).on('click', '.btn-close', function() {
 
-        $('.custom-alert').hide();
+        //$('.custom-alert').hide();
+        alert('ok');
 
       });
 
@@ -302,6 +354,28 @@
       }, 3000);
 
     });
+  </script>
+  <!-- script for input image outo preview-->
+    <script>
+    // image preview 
+    $("#s_photo").change(function() {
+      readURL(this);
+    });
+    // image preview function
+    function previewFile() {
+      var preview = document.querySelector('#s_photo'); //selects the query named img
+      var file = document.querySelector('input[type=file]').files[0]; //sames as here
+      var reader = new FileReader();
+      reader.onloadend = function() {
+        preview.src = reader.result;
+      }
+      if (file) {
+        reader.readAsDataURL(file); //reads the data as a URL
+      } else {
+        file.preview.src = '<img src="assets/backend/users/noimage.jpg" />';
+      }
+    }
+    previewFile(); //calls the function named previewFile()
   </script>
 
 </body>

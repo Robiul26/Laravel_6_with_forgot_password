@@ -127,17 +127,6 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="txtAria">Aria</label>
-                                <input type="text" name="txtAria" class="form-control" value="{{  $order->recipient_area}}" id="txtAria">
-                                @if ($errors->has('txtAria'))
-                                <p class="text-danger">
-                                    <small>{{ $errors->first('txtAria') }}</small>
-                                </p>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
                                 <label for="itemQty">Item Quantity</label>
                                 <input type="text" name="itemQty" class="form-control" value="{{  $order->item_quantity}}" id="itemQty">
                                 @if ($errors->has('itemQty'))

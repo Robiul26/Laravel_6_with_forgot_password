@@ -53,9 +53,9 @@
                         </li>
                         <li><a>API Management<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="{{url('roles/create')}}">Add API</a>
+                            <li class="sub_menu"><a href="#">Add API</a>
                             </li>
-                            <li><a href="{{url('roles')}}">View API</a>
+                            <li><a href="#">View API</a>
                             </li>
                           </ul>
                         </li>

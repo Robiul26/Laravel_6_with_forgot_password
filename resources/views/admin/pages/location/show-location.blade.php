@@ -10,7 +10,7 @@
     <div class="x_panel">
       <div class="x_title">
         <h2><a href="{{url('locations/create')}}"><i class="fa fa-plus"></i> Add New<span class="spinner-grow spinner-grow-sm text-success"></span></a></h2>
-        
+
         <ul class="nav navbar-right panel_toolbox">
           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
           </li>
@@ -30,35 +30,29 @@
                       <thead>
                         <tr role="row">
                           <th>#ID</th>
-                          <th>Item Type</th>
-                          <th >Store Name</th>
-                          <th >Merchant Order ID</th>
-                          <th >Name</th>
-                          <th >Phone</th>
-                          <th >Address</th>
-                          <th >Amount</th>
-                          <th >Date</th>
-                          <th >Option</th>
+                          <th>City ID</th>
+                          <th>City Name</th>
+                          <th>Zone ID</th>
+                          <th>Zone Name</th>
+                          <th>Option</th>
                         </tr>
                       </thead>
+                      @foreach($city_zones as $city_zone)
                       <tr role="row" class="odd">
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
-                        <td>dfgfd</td>
+                        <td>{{$city_zone->id}}</td>
+                        <td>{{$city_zone->city_id}}</td>
+                        <td>{{$city_zone->city_name}}</td>
+                        <td>{{$city_zone->zone_id}}</td>
+                        <td>{{$city_zone->zone_name}}</td>
                         <td>
                         </td>
                       </tr>
+                      @endforeach
                     </table>
                   </div>
                 </div>
                 <div class="row">
-
+                  {{$city_zones->links()}}
                 </div>
               </div>
             </div>

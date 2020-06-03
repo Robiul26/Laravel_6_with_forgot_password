@@ -44,13 +44,13 @@
                 </div>
                 <div class="form-row">
                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="customFile">
-                                <img src="{{ asset('uploads/users/'.$user->picture) }}" id="liveImg" class="img-responsive border"
+						 <div class="form-group">
+                                <label for="image">
+                                    <img src="{{ asset('uploads/users/'.$user->picture) }}" id="s_photo" class="img-responsive border"
                                     style="height: 180px; display: inline;">
-                            </label>
-                            <input type="file" name="image" id="customFile" class="position-absolute invisible">
-                        </div>
+                                </label>
+                                <input type="file" onchange="previewFile()" name="image" id="image" class="position-absolute invisible">
+                            </div>
                     </div>
                     <div class="col-sm-9">
                         <div class="form-group">

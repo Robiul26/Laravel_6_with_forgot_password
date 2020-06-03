@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+	<link rel="icon" href="{{asset('assets/backend/images/favicon.png')}}" type="image/ico" />
 
     <title>{{ config('app.name', 'Courier Management System') }}</title>
 
@@ -45,7 +46,7 @@
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="#"></a>
                                 </li>
                             @endif
                         @else

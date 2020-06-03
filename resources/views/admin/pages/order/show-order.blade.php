@@ -11,13 +11,29 @@
       <div class="x_title">
         <h2><a href="{{url('orders/create')}}"><i class="fa fa-plus"></i> Add New<span class="spinner-grow spinner-grow-sm text-success"></span></a></h2>
         <a class="btn btn-info ml-3" href="{{url('report')}}">Today Report</a>
-        <a class="btn btn-info" href="#">Date wise Report</a>
-        <ul class="nav navbar-right panel_toolbox">
-          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-          </li>
-          <li><a class="close-link"><i class="fa fa-close"></i></a>
-          </li>
-        </ul>
+        <a class="btn btn-info" onclick="myFunction()" href="#">Date wise Report</a>
+        <a class="btn" href="#" id="nameSearch">
+          <form action="{{url('search')}}" method="get">
+            <div class="input-group">
+              <input type="search" name="search" class="form-control" placeholder="Search..">
+              <span class="from-group-btn">
+                <button type="submit" class="btn btn-info">Search</button>
+              </span>
+            </div>
+          </form>
+
+        </a>
+        <a class="btn w-25 show" href="#" id="dateSearch" style="margin-left:162px;">
+          <form action="{{url('search')}}" method="get">
+            <div class="input-group">
+              <input type="search" name="search" class="form-control datepicker" placeholder="Select Date">
+              <span class="from-group-btn">
+                <button type="submit" class="btn btn-info">Search</button>
+              </span>
+            </div>
+          </form>
+
+        </a>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -27,45 +43,17 @@
               <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer">
                 <div class="row">
                   <div class="col-sm-2">
-                    <div class="dataTables_length" id="datatable_length"><label>Show <select name="datatable_length" aria-controls="datatable" class="form-control input-sm">
-                          <option value="10">10</option>
-                          <option value="25">25</option>
-                          <option value="50">50</option>
-                          <option value="100">100</option>
-                        </select> entries</label></div>
+
                   </div>
                   <div class="col-sm-6">
-                    <div id="datatable_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="datatable"></label></div>
+
                   </div>
                 </div>
-                <form action="">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label for="">Start Date</label>
-                        <input class="form-control datepicker">
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <label for="">End Date</label>
-                        <input class="form-control datepicker">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                        <input class="btn btn-info" type="submit" value="OK">
-                      </div>
-                    </div>
-                  </div>
-                </form>
                 <div class="row">
                   <div class="col-sm-12">
 
-                    <table id="datatable" class="table table-responsive table-striped table-bordered dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="datatable_info">
-                      <thead>
+                    <table id="datatable" class="table table-responsive table-striped table-bordered" style="width: 100%;" role="grid" aria-describedby="datatable_info">
+                      <thead class="table-info">
                         <tr role="row">
                           <th>#ID</th>
                           <th>Store ID</th>
@@ -80,25 +68,32 @@
                           <th>Item Type</th>
                           <th>Instraction</th>
                           <th>QTY</th>
-                          <th>Weight</th>
+                          <th>Weight(kg)</th>
                           <th>Price</th>
-                          <th>Amount</th>
+                          <th>Amount To Collect</th>
                           <th>Date</th>
+                          <th>Status</th>
                           <th>Option</th>
                         </tr>
                       </thead>
                       @foreach($orders as $order)
                       <tr role="row" class="odd">
-                        <td>{{$order->id}}
-
+                        <td>
+                          <a href="{{ url('/single_report/'.$order->id) }}" class="btn btn-info btn-sm">{{$order->id}}</a>
                         </td>
-                        <td>{{$order->store_id}}</td>
+                        <td>
+                          @if($order->store_id==15)
+                          Creation Edge Delivery Office
+                          @else
+                          {{$order->store_id}}
+                          @endif
+                        </td>
                         <td>{{$order->merchant_order_id}}</td>
                         <td>{{$order->recipient_name}}</td>
                         <td>{{$order->recipient_phone}}</td>
                         <td>{{$order->recipient_address}}</td>
-                        <td>{{$order->recipient_city}}</td>
-                        <td>{{$order->recipient_zone}}</td>
+                        <td>{{$order->city['city_name']}}</td>
+						  <td>{{$order->city['zone_name']}}</td>
                         <td>{{$order->recipient_area}}</td>
                         <td>
                           @if($order->delivery_type==48)
@@ -107,13 +102,20 @@
                           On Demand Delivery (same day)
                           @endif
                         </td>
-                        <td>{{$order->item_type}}</td>
+                        <td>
+                          @if($order->item_type==1)
+                          Document
+                          @elseif($order->item_type==2)
+                          Parcel
+                          @endif
+                        </td>
                         <td>{{$order->special_instruction}}</td>
                         <td>{{$order->item_quantity}}</td>
                         <td>{{$order->item_weight}}</td>
-                        <td>{{$order->price}}</td>
+                        <td>Tk.{{$order->price}}</td>
                         <td>{{$order->amount_to_collect}}</td>
                         <td>{{$order->created_at}}</td>
+                        <td class="text-danger">Panding..</td>
                         <td>
                           <a href="{{ url('/orders/'.$order->id.'/edit') }}" class="text-primary"><i class="fa fa-edit fa-lg"></i> |</a>
                           <a class="text-danger" href="#" onclick="event.preventDefault(); document.getElementById('edit-form-{{$order->id}}').submit();"> <i class="fa fa-trash fa-lg"></i></a>
@@ -122,6 +124,7 @@
                             @method('delete')
                             @csrf
                           </form>
+                          <a href="{{ url('/single_report/'.$order->id) }}" class="btn btn-info btn-sm mt-2">ViewPDF</a>
                         </td>
                       </tr>
                       @endforeach
@@ -139,4 +142,15 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  function myFunction() {
+    $("#dateSearch").toggleClass("show");
+  }
+</script>
+
+
+
+
 @endsection
